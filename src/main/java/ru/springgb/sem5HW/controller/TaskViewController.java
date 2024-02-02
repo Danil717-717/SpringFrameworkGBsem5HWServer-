@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.springgb.sem5HW.Task;
 import ru.springgb.sem5HW.service.TaskService;
@@ -32,7 +33,10 @@ public class TaskViewController {
     }
 
     @PostMapping
-    public String create(@Valid @ModelAttribute("task") Task task) {
+    public String create(@ModelAttribute("task") @Valid Task task, BindingResult result) {
+        if (result.hasErrors()) {
+            return "new";
+        }
         taskService.createTask(task);
         return "redirect:tasks";
     }
