@@ -19,3 +19,13 @@
 
 
 docker run --name tasksdb -e POSTGRES_DB=tasksdb -e POSTGRES_USER=task -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
+
+Доп метод по Update с профиля таски
+    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+    private String updateTask(@PathVariable("id") Long id, @ModelAttribute Task task) {
+        task.setId(id);
+        taskService.apdateTask(task);
+        return "redirect:/tasks";
+    }
+
+

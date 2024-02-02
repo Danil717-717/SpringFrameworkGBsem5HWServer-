@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User List</title>
-<!--    <link th:href="@{/style.css}" rel="stylesheet" />-->
+    <!--    <link th:href="@{/style.css}" rel="stylesheet" />-->
 </head>
 <body>
     <div class="body_title">
@@ -12,27 +12,35 @@
 
     <div>
         <form th:method="GET" th:action="@{/tasks/new}" th:object="${task}">
-            <input class="inputtask" type="submit" value="Add task"/></form>
+        <input class="inputtask" type="submit" value="Add task"/></form>
     </div>
 
-        <br>
+    <br>
     <h2>Tasks: </h2>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>CompletionTime</th>
-            <th>Delete</th>
-        </tr>
-        <tr th:each="task:${tasks}">
-            <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.id}"></a></td>
-            <td th:text="${task.description}"></td>
-            <td th:text="${task.status}"></td>
-            <td th:text="${task.completionTime}"></td>
-            <td><a th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a></td>
-        </tr>
-    </table>
+    <div align="center">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>CompletionTime</th>
+                <th>Actions</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task:${tasks}">
+                <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.id}"></a></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}"></td>
+                <td th:text="${task.completionTime}"></td>
+                <td><a th:href="@{/tasks/updateTask/{id}(id=${task.id})}">Update</a></td>
+                <td><a th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

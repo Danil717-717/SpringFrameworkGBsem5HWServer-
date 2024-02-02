@@ -41,6 +41,15 @@ public class TaskViewController {
         return "redirect:tasks";
     }
 
+    @PostMapping("/saveTask")
+    public String saveTask(@ModelAttribute("task") @Valid Task task, BindingResult result) {
+        if (result.hasErrors()) {
+            return "updateTask";
+        }
+        taskService.apdateTask(task);
+        return "redirect:/tasks";
+    }
+
     @GetMapping("/{id}")
     public String getTask(@PathVariable Long id, Model model) {
         model.addAttribute("task", taskService.getTaskById(id));
@@ -48,11 +57,11 @@ public class TaskViewController {
     }
 
 
-    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
-    private String updateTask(@PathVariable("id") Long id, @ModelAttribute Task task) {
-        task.setId(id);
-        taskService.apdateTask(task);
-        return "redirect:/tasks";
+    @GetMapping("/updateTask/{id}")
+    public String updateTask(@PathVariable(value = "id") Long id, Model model){
+        Task task = taskService.getTaskById(id);
+        model.addAttribute("task", task);
+        return "updateTask";
     }
 
     @GetMapping("/delete/{id}")
