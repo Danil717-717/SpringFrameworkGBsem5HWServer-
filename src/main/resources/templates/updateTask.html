@@ -9,7 +9,7 @@
 <div class="addtask">
 
     <h1>Update task</h1>
-    <form th:method="POST" th:action="@{/tasks/saveTask}" th:object="${task}" >
+    <form th:method="POST" th:action="@{/tasks/update/{id}(id=${task.id})}" th:object="${task}" >
         <div class="descriptionform">
             <label for="description">Description</label>
             <input type="text" th:field="*{description}" id="description"></input>
