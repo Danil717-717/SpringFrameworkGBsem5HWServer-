@@ -1,10 +1,17 @@
 package ru.springgb.sem5HW.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.support.TaskUtils;
 import org.springframework.stereotype.Service;
 import ru.springgb.sem5HW.Task;
 import ru.springgb.sem5HW.repository.TaskRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> getAllTasks() {
+
         return taskRepository.findAll();
     }
 
@@ -42,12 +50,9 @@ public class TaskServiceImpl implements TaskService {
 
     //&&&&&&&&
     @Override
-    public List<Task> getTaskStatus(Task.Status status) {
-//        List<Task>listStatus;
-//
-//        return getAllTasks().stream().filter(task->task.getStatus().equals(status))
-//                .findAny().orElseGet()
-        return null;
+    public List<Task> getTaskStatus(String status) {
+        List<Task> tasks =   taskRepository.findAll().stream().filter(task -> task.getStatus().equals(status)).toList();
+        return tasks;
     }
 
 
@@ -71,6 +76,31 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(id);
     }
 
+    @Override
+    public Page<Task> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return taskRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Task> findPaginated(Pageable pageable) {
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<Task> list;
+
+            if (taskRepository.findAll().size() < startItem) {
+                list = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, taskRepository.findAll().size());
+                list = taskRepository.findAll().subList(startItem, toIndex);
+            }
+
+            Page<Task> bookPage
+                    = new PageImpl<Task>(list, PageRequest.of(currentPage, pageSize), taskRepository.findAll().size());
+
+            return bookPage;
+    }
 
 
 }

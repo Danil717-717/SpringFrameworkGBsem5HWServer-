@@ -25,7 +25,7 @@ public class TaskController {
 
     @GetMapping("/{status}")
     public List<Task> getTaskById(@PathVariable Task.Status status) {
-        return service.getTaskStatus(status);
+        return  null;//service.getTaskStatus(status);
     }
 
     @PostMapping

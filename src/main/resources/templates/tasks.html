@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>User List</title>
-    <!--    <link th:href="@{/style.css}" rel="stylesheet" />-->
+        <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
     <div class="body_title">
-        <h1> Welcome!!!</h1>
+        <h1> Service Task</h1>
     </div>
 
     <div>
-        <form th:method="GET" th:action="@{/tasks/new}" th:object="${task}">
+        <form class="addbut" th:method="GET" th:action="@{/tasks/new}" th:object="${task}">
         <input class="inputtask" type="submit" value="Add task"/></form>
     </div>
 
     <br>
-    <h2>Tasks: </h2>
+    <h2 class="body_h2">Tasks: </h2>
 
-    <div align="center">
-        <table border="1">
+    <div class="tablediv">
+        <table border="1" class="tabletask">
             <thead>
             <tr>
                 <th>ID</th>
@@ -32,15 +32,20 @@
             </thead>
             <tbody>
             <tr th:each="task:${tasks}">
-                <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.id}"></a></td>
+                <td><a class="linkId" th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.id}"></a></td>
                 <td th:text="${task.description}"></td>
                 <td th:text="${task.status}"></td>
                 <td th:text="${task.completionTime}"></td>
-                <td><a th:href="@{/tasks/updateTask/{id}(id=${task.id})}">Update</a></td>
-                <td><a th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a></td>
+                <td><a class="linkUpdate" th:href="@{/tasks/updateTask/{id}(id=${task.id})}" >Update</a></td>
+                <td><a class="linkDelete" th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
+
+
+
+
+
     </div>
 </body>
 </html>

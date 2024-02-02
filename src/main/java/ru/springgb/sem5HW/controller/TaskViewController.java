@@ -2,12 +2,19 @@ package ru.springgb.sem5HW.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.springgb.sem5HW.Task;
 import ru.springgb.sem5HW.service.TaskService;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -24,7 +31,10 @@ public class TaskViewController {
     public String index(Model model) {
         model.addAttribute("tasks", taskService.getAllTasks());
         return "tasks";
+        //return findPaginated(1, model);
+
     }
+
 
     @GetMapping("/new")
     public String newTask(Model model) {
@@ -71,5 +81,23 @@ public class TaskViewController {
         taskService.deleteById(id);
         return "redirect:/tasks";
     }
+
+    @GetMapping({"/searchTask","/searchTask{status}"})
+    public String searchTaskByTitle(@ModelAttribute("status") @RequestParam("status") Optional<String> status,
+                                    Model model,Task task){
+        System.out.println(status);
+
+        if(status.isPresent()) {
+            List<Task> taskList = taskService.getTaskStatus(status.get());
+            model.addAttribute("task",task);
+            model.addAttribute("task2", taskList);
+            return "tasks";
+        }
+        else
+        {
+            return "task/searchTask";}
+    }
+
+
 
 }

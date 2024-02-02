@@ -59,3 +59,44 @@ HTML с профиля
 //        model.addAttribute("task", task);
 //        return "updateTask";
 //    }
+
+
+<div th:if = "${totalPages > 1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-2">
+                    Total Rows:[[${totalItems}]]
+                </div>
+                <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}" >[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span>
+                    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}" >Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+
+                </div>
+
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}" >Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+
+                </div>
+            </div>
+
+        </div>
+
+
+         @Override
+            public Page<Task> findPaginated(int pageNo, int pageSize) {
+                Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+                return taskRepository.findAll(pageable);
+            }
+
+
+            <form action="#" th:action="@{/task/searchTask(param=${tasks?.getTaskStatus()})}" th:object="${task}" >
+                        <label for="title">Find Book by Title</label>
+                        <input type="text" id="title" name="title" th:value="${tasks?.getTaskStatus()}" placeholder="Task status"/>
+                        <input type="submit" value="Search"/>
+                    </form>
