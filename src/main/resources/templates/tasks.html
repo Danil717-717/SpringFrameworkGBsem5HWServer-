@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+<!--    <link th:href="@{/style.css}" rel="stylesheet" />-->
+</head>
+<body>
+    <div class="body_title">
+        <h1> Welcome!!!</h1>
+    </div>
+
+    <div>
+        <form th:method="GET" th:action="@{/tasks/new}" th:object="${task}">
+            <input class="inputtask" type="submit" value="Add task"/></form>
+    </div>
+
+        <br>
+    <h2>Tasks: </h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>CompletionTime</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="task:${tasks}">
+            <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.id}"></a></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.status}"></td>
+            <td th:text="${task.completionTime}"></td>
+            <td><a th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a></td>
+        </tr>
+    </table>
+</body>
+</html>
