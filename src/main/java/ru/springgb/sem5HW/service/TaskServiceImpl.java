@@ -118,4 +118,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
+    @Override
+    public List<Task> getByKeyword(String keyword){
+        return taskRepository.findByKeyword(keyword);
+    }
+
+
 }

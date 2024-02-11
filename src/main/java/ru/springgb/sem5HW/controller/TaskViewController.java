@@ -26,7 +26,7 @@ public class TaskViewController {
 
     @GetMapping
     public String index(Model model) {
-        return findPaginated(1,"id","asc", model);
+        return findPaginated(1,"id","asc", "keyword", model);
 
     }
 
@@ -97,10 +97,19 @@ public class TaskViewController {
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
+                                String keyword,
                                 Model model) {
         int pageSize = 5;
 
         Page<Task> page = taskService.findPaginated(pageNo, pageSize, sortField, sortDir);
+
+        if(keyword!=null) {
+            List<Task> list = taskService.getByKeyword(keyword);
+            model.addAttribute("list", list);
+        }else {
+            List<Task> list = taskService.getAllTasks();
+            model.addAttribute("list", list);
+        }
 
         List<Task> listTasks = page.getContent();
 
@@ -114,6 +123,20 @@ public class TaskViewController {
 
         model.addAttribute("listTasks", listTasks);
         return "tasks";
+    }
+
+
+    @GetMapping({"/search"})
+    public String taskSearch(Task task, Model model, String keyword) {
+        if(keyword!=null) {
+            taskService.getByKeyword(keyword);
+            model.addAttribute("task", task);
+
+        }else {
+            List<Task> list = taskService.getAllTasks();
+            model.addAttribute("list", list);
+        }
+        return "redirect:/tasks";
     }
 
 

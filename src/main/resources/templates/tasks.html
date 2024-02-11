@@ -18,6 +18,16 @@
     <br>
     <h2 class="body_h2">Tasks: </h2>
 
+    <div>
+        <form th:action="@{/tasks}" method="GET">
+            <input type="text" name="keyword" th:value="${keyword}" placeholder="Find by status" size="50">
+            <button type="submit" class="btn_info" >Search</button>
+            <button type="reset" class="btn_info" >Reset</button>
+        </form>
+    </div>
+
+    <br>
+
     <div class="tablediv">
         <table border="1" class="tabletask">
             <thead>

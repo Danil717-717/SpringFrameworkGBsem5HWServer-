@@ -27,4 +27,7 @@ public interface TaskService {
     List<Task> findTaskWithSorting(String field);
     Page<Task> findProductsWithPagination(int offset,int pageSize);
     Page<Task> findProductsWithPaginationAndSorting(int offset,int pageSize,String field);
+
+
+    List<Task> getByKeyword(String keyword);
 }
