@@ -1,12 +1,20 @@
-package ru.springgb.sem5HW;
+package ru.springgb.sem5HW.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+@Getter
 @Entity(name="tasks")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 
 
@@ -32,41 +40,22 @@ public class Task {
     @UpdateTimestamp
     private LocalDateTime completionTime;
 
-    public Task() {
-
-    }
 
     public Task(String description, Status status) {
         this.description = description;
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCompletionTime() {
-        return completionTime;
     }
 
     public void setCompletionTime(LocalDateTime completionTime) {

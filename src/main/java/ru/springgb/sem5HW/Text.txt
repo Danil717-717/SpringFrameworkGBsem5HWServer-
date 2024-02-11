@@ -41,7 +41,7 @@ HTML с профиля
             <label for="status">Status</label>
 
             <select name="status" id="status">
-                <option th:each="status : ${T(ru.springgb.sem5HW.Task.Status).values()}"
+                <option th:each="status : ${T(ru.springgb.sem5HW.model.Task.Status).values()}"
                         th:value="${status}" th:text="${status}"></option>
             </select>
 
@@ -100,3 +100,19 @@ HTML с профиля
                         <input type="text" id="title" name="title" th:value="${tasks?.getTaskStatus()}" placeholder="Task status"/>
                         <input type="submit" value="Search"/>
                     </form>
+/////////////////////////////
+
+В UserController у нас также будет метод showUpdateForm(), который отвечает за выборку сущности User, которая соответствует предоставленному id из базы данных.
+
+Если объект существует, он будет передан в качестве атрибута модели в представление формы обновления.
+
+Таким образом, форма может быть заполнена значениями полей имя и адрес электронной почты:
+
+@GetMapping("/edit/{id}")
+public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    User user = userRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+    model.addAttribute("user", user);
+    return "update-user";
+}

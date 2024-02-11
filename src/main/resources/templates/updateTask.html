@@ -20,7 +20,7 @@
         <div class="statusform">
             <label for="status">Status</label>
             <select name="status" id="status">
-                <option th:each="status : ${T(ru.springgb.sem5HW.Task.Status).values()}"
+                <option th:each="status : ${T(ru.springgb.sem5HW.model.Task.Status).values()}"
                         th:value="${status}" th:text="${status}"></option>
             </select>
 
