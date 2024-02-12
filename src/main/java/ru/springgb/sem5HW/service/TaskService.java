@@ -12,7 +12,7 @@ public interface TaskService {
     List<Task> getAllTasks();
 
     Task getTaskById(Long id);
-    //List<Task> getTaskStatus(String status);
+
 
     Task updateTask(Long id, Task task);
 
@@ -20,9 +20,6 @@ public interface TaskService {
     void deleteById(Long id);
 
     Page<Task> findPaginated(int pageNo, int pageSize,String sortField, String sortDirection);
-
-
-    //Page<Task> findPaginated(Pageable pageable);
 
     List<Task> findTaskWithSorting(String field);
     Page<Task> findProductsWithPagination(int offset,int pageSize);

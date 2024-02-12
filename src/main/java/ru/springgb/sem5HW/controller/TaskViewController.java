@@ -77,22 +77,6 @@ public class TaskViewController {
         return "redirect:/tasks";
     }
 
-//    @GetMapping({"/searchTask","/searchTask{status}"})
-//    public String searchTaskByTitle(@ModelAttribute("status") @RequestParam("status") Optional<String> status,
-//                                    Model model,Task task){
-//        System.out.println(status);
-//
-//        if(status.isPresent()) {
-//            List<Task> taskList = taskService.getTaskStatus(status.get());
-//            model.addAttribute("task",task);
-//            model.addAttribute("task2", taskList);
-//            return "tasks";
-//        }
-//        else
-//        {
-//            return "task/searchTask";}
-//    }
-
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,

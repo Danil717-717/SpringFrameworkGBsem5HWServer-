@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 import ru.springgb.sem5HW.model.Task;
 import ru.springgb.sem5HW.repository.TaskRepository;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
-    //private Sort.Direction ;
 
     @Autowired
     public TaskServiceImpl(TaskRepository taskRepository) {
@@ -44,12 +43,6 @@ public class TaskServiceImpl implements TaskService {
         return getAllTasks().stream().filter(task -> task.getId().equals(id)).findFirst().orElse(null);
     }
 
-    //&&&&&&&&
-//    @Override
-//    public List<Task> getTaskStatus(String status) {
-//        List<Task> tasks =   taskRepository.findAll().stream().filter(task -> task.getStatus().equals(status)).toList();
-//        return tasks;
-//    }
 
 
     @Override
@@ -81,25 +74,6 @@ public class TaskServiceImpl implements TaskService {
         return this.taskRepository.findAll(pageable);
     }
 
-//    @Override
-//    public Page<Task> findPaginated(Pageable pageable) {
-//            int pageSize = pageable.getPageSize();
-//            int currentPage = pageable.getPageNumber();
-//            int startItem = currentPage * pageSize;
-//            List<Task> list;
-//
-//            if (taskRepository.findAll().size() < startItem) {
-//                list = Collections.emptyList();
-//            } else {
-//                int toIndex = Math.min(startItem + pageSize, taskRepository.findAll().size());
-//                list = taskRepository.findAll().subList(startItem, toIndex);
-//            }
-//
-//            Page<Task> bookPage
-//                    = new PageImpl<Task>(list, PageRequest.of(currentPage, pageSize), taskRepository.findAll().size());
-//
-//            return bookPage;
-//    }
 
     @Override
     public List<Task> findTaskWithSorting(String fi) {

@@ -20,18 +20,12 @@ public class TaskController {
         this.service = service;
     }
 
-//    @GetMapping
-//    public List<Task> getAllTask(){
-//        return service.getAllTasks();
-//    }
 
     @GetMapping("/{status}")
     public List<Task> getTaskById(@PathVariable Task.Status status) {
-        return  null;//service.getTaskStatus(status);
+        return  null;
     }
 
-//    @GetMapping("/{field}")
-//    private APIRespon
 
     @PostMapping
     public Task createTask(@RequestBody Task task) {
@@ -49,8 +43,6 @@ public class TaskController {
     }
 
 
-
-    ////////////////
 
     @GetMapping
     private APIResponse<List<Task>> getTasks() {
